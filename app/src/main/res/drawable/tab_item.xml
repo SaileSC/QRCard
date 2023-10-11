@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Estrutura para juntar layer-list e o selector, permitindo usar o left e right -->
+    <item android:left="8dp" android:right="8dp">
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <!-- Estado da aba não selecionada -->
+            <item android:left="15dp" android:right="15dp" android:state_selected="false">
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/darker_gray" />
+                    <corners
+                        android:radius="10dp"/>
+                </shape>
+            </item>
+            <!-- Estado da aba selecionada -->
+            <item android:left="15dp" android:right="15dp"  android:state_selected="true">
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/blue" />
+                    <corners
+                        android:radius="10dp"/>
+                </shape>
+            </item>
+        </selector>
+    </item>
+</layer-list>
+
+
+
+

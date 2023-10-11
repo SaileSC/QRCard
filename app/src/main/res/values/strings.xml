@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">QRCard</string>
+    <string name="login">Login</string>
+    <string name="password">Senha</string>
+    <string name="forget_password">Esqueceu a senha?</string>
+    <string name="new_user">Usuário novo? Cadastre-se!</string>
+    <string name="recovering_password">Recuperação de Senha</string>
+    <string name="recover_password">Recuperar</string>
+    <string name="user_email">E-mail</string>
+    <string name="user_name">Nome</string>
+    <string name="sing_up">Cadastro</string>
+    <string name="sing_up_confirmed">Cadastrar</string>
+    <string name="restaurant_select">Selecionar Restaurante</string>
+    <string name="qrcode_read">Ler QRCode</string>
+    <string name="all_dishes">Todos</string>
+    <string name="starter_dishes">Entradas</string>
+    <string name="main_dishes">Principal</string>
+    <string name="dessert">Sobremesa</string>
+    <string name="item_detail">Detalhes do Produto</string>
+    <string name="add_item">Adiconar Item</string>
+    <string name="order_finished">Finalizar Compra</string>
+    <string name="order_observation">Observações:</string>
+    <string name="order_table">Mesa:</string>
+    <string name="order_value">Itens:</string>
+    <string name="order_value_total">Total:</string>
+    <string name="payment_method">Observações:</string>
+    <string name="order_success_tab">Pedido Realizado</string>
+    <string name="order_success">Seu pedido foi realizado com sucesso!</string>
+    <string name="search">Procurar</string>
+
+
+</resources>
