@@ -19,14 +19,27 @@
     <string name="item_detail">Detalhes do Produto</string>
     <string name="add_item">Adiconar Item</string>
     <string name="order_finished">Finalizar Compra</string>
+    <string name="quantity">Quantidade : </string>
     <string name="order_observation">Observações:</string>
-    <string name="order_table">Mesa:</string>
-    <string name="order_value">Itens:</string>
+    <string name="table">Mesa:</string>
+    <string name="itens">Itens:</string>
+    <string name="total">Total:</string>
+    <string name="methopaymant">Método de Pagamento</string>
+    <string name="choose_form">Escolher pagamento</string>
     <string name="order_value_total">Total:</string>
     <string name="payment_method">Observações:</string>
     <string name="order_success_tab">Pedido Realizado</string>
     <string name="order_success">Seu pedido foi realizado com sucesso!</string>
     <string name="search">Procurar</string>
+    <string name="debit">Débito</string>
+    <string name="credit">Crédito</string>
+    <string name="pix">Pix</string>
+    <string name="attable">Mesa</string>
+    <string name="createprodut">Criar Produto</string>
+    <string name="select_image">Selecione uma imagem</string>
+    <string name="price">Preço</string>
+    <string name="description">Descrição</string>
+    <string name="category">Categoria</string>
 
 
 </resources>

@@ -33,7 +33,7 @@
     <View
         android:id="@+id/v_line"
         android:layout_width="wrap_content"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:layout_marginTop="60dp"
         android:background="@color/gray"
         app:layout_constraintTop_toTopOf="parent"
@@ -49,13 +49,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/v_line"
         app:tabBackground="@drawable/tab_item"
         app:tabIndicatorColor="#00FFFFFF"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/black"
         app:tabTextAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/v_line">
+        app:tabTextColor="@color/black">
 
 
         <com.google.android.material.tabs.TabItem
@@ -66,7 +66,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/starter_dishes"/>
+            android:text="@string/starter_dishes" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
