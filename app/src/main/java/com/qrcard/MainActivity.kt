@@ -2,13 +2,19 @@ package com.qrcard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
-import com.google.android.material.tabs.TabLayout
-import kotlin.properties.Delegates
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.qrcard.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_product)
+        setContentView(binding.root)
+
+        val navController = findNavController(R.id.nav_host_fragment)
+        setupWithNavController(binding.bottomNavigation, navController)
     }
 }

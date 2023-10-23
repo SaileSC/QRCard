@@ -14,8 +14,8 @@
     <string name="qrcode_read">Ler QRCode</string>
     <string name="all_dishes">Todos</string>
     <string name="starter_dishes">Entradas</string>
-    <string name="main_dishes">Principal</string>
-    <string name="dessert">Sobremesa</string>
+    <string name="main_dishes">Principais</string>
+    <string name="dessert">Sobremesas</string>
     <string name="item_detail">Detalhes do Produto</string>
     <string name="add_item">Adiconar Item</string>
     <string name="order_finished">Finalizar Compra</string>
@@ -40,6 +40,7 @@
     <string name="price">Preço</string>
     <string name="description">Descrição</string>
     <string name="category">Categoria</string>
+    <string name="response_erro">Sem itens para mostrar</string>
 
 
 </resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/allFragment">
+
+
+    <fragment
+        android:id="@+id/allFragment"
+        android:name="com.qrcard.iu.fragment.AllFragment"
+        android:label="allFragment"
+        tools:layout="@layout/all_fragment">
+        <action
+            android:id="@+id/go_to_detailActivity"
+            app:destination="@id/detailActivity"/>
+        <argument
+            android:name="dados"
+            app:argType="com.qrcard.domain.Item" />
+    </fragment>
+
+
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="com.qrcard.iu.activity.DetailActivity"
+        android:label="DetailActivity"
+        tools:layout="@layout/activity_detail_item"/>
+
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.qrcard.iu.fragment.MainFragment"
+        android:label="mainFragment"
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/go_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/starterFragment"
+        android:name="com.qrcard.iu.fragment.StarterFragment"
+        android:label="StarterFragment"
+        tools:layout="@layout/starter_fragment">
+        <action
+            android:id="@+id/go_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/dessertFragment"
+        android:name="com.qrcard.iu.fragment.DessertFragment"
+        android:label="DessertFragment"
+        tools:layout="@layout/dessert_fragment">
+        <action
+            android:id="@+id/go_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
+
+
+</navigation>

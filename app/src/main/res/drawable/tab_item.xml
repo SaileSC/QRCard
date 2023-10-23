@@ -8,6 +8,8 @@
             <!-- Estado da aba não selecionada -->
             <item android:left="15dp" android:right="15dp" android:state_selected="false">
                 <shape android:shape="rectangle">
+                    <padding
+                        android:bottom="8dp"/>
                     <solid android:color="@android:color/darker_gray" />
                     <corners
                         android:radius="10dp"/>
