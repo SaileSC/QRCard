@@ -1,50 +1,72 @@
-package com.qrcard.iu.fragment
+package com.qrcard.iu
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.activity.viewModels
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.qrcard.R
 import com.qrcard.data.ItensApi
+import com.qrcard.databinding.LoadFragmentBinding
+import com.qrcard.databinding.OrderFinalizeFragmentBinding
 import com.qrcard.domain.Item
-import com.qrcard.iu.fragment.adapter.ItemAdapter
+import com.qrcard.iu.fragment.adapter.ItemBuyAdapter
+import com.qrcard.iu.fragment.modelview.MainViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AllFragment : Fragment() {
-    lateinit var listaItens : RecyclerView
-    lateinit var itensApi : ItensApi
 
-    var itensArray : ArrayList<Item> = ArrayList()
+class LoadFragment : Fragment() {
+
+    private val binding by lazy { LoadFragmentBinding.inflate(layoutInflater) }
+    private val viewMain : MainViewModel by activityViewModels()
+
+    lateinit var itensApi : ItensApi
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.all_fragment, container, false)
+    ): View {
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRetrofit()
-        setupView(view)
-    }
-
-
-    override fun onResume() {
-        super.onResume()
         getAllItens()
+        lifecycleScope.launch {
+            netxScreen()
+        }
     }
 
+//    override fun onResume() {
+//        super.onResume()
+//        setupRetrofit()
+//        getAllItens()
+//        lifecycleScope.launch {
+//            netxScreen()
+//        }
+//    }
 
+    private suspend fun netxScreen() {
+        delay(1000)
+        val navController = findNavController()
+        navController.navigate(R.id.go_to_mainScreen)
+    }
 
     fun setupRetrofit() {
         val retrofit = Retrofit.Builder()
@@ -54,12 +76,13 @@ class AllFragment : Fragment() {
         itensApi = retrofit.create(ItensApi::class.java)
     }
 
-    fun getAllItens() {
+    private fun getAllItens() {
         itensApi.getAllItens().enqueue(object : Callback<List<Item>> {
             override fun onResponse(call: Call<List<Item>>, response: Response<List<Item>>) {
                 if(response.isSuccessful){
+                    binding.pbLoader.isGone = true
                     response.body()?.let {
-                        setupList(it)
+                        viewMain.setListItens(it)
                     }
                 }else{
                     Toast.makeText(context, R.string.response_erro, Toast.LENGTH_LONG).show()
@@ -67,24 +90,9 @@ class AllFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<Item>>, t: Throwable) {
-                Toast.makeText(context, R.string.response_erro, Toast.LENGTH_LONG).show()            }
+                Toast.makeText(context, R.string.response_erro, Toast.LENGTH_LONG).show()
+            }
 
         })
-    }
-
-
-    fun setupList(lista : List<Item>){
-        val itemAdapter = ItemAdapter(lista)
-
-        listaItens.apply {
-            isVisible = true
-            adapter = itemAdapter
-        }
-    }
-
-    fun setupView(view: View){
-        view.apply {
-            listaItens = findViewById(R.id.rv_all_itens)
-        }
     }
 }

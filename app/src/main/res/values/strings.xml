@@ -17,7 +17,7 @@
     <string name="main_dishes">Principais</string>
     <string name="dessert">Sobremesas</string>
     <string name="item_detail">Detalhes do Produto</string>
-    <string name="add_item">Adiconar Item</string>
+    <string name="add_item">Adicionar Item</string>
     <string name="order_finished">Finalizar Compra</string>
     <string name="quantity">Quantidade : </string>
     <string name="order_observation">Observações:</string>
@@ -41,6 +41,7 @@
     <string name="description">Descrição</string>
     <string name="category">Categoria</string>
     <string name="response_erro">Sem itens para mostrar</string>
+    <string name="perfil">Informação do Perfil\n</string>
 
 
 </resources>

@@ -3,21 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/allFragment"
-        android:title="@string/all_dishes"
-        android:gravity="center"/>
+        android:title="@string/all_dishes" />
 
     <item
         android:id="@+id/starterFragment"
-        android:title="@string/starter_dishes"
-        android:gravity="center"/>
+        android:title="@string/starter_dishes" />
 
     <item
         android:id="@+id/mainFragment"
-        android:title="@string/main_dishes"
-        android:gravity="center"/>
+        android:title="@string/main_dishes" />
 
     <item
         android:id="@+id/dessertFragment"
-        android:title="@string/dessert"
-        android:gravity="center"/>
+        android:title="@string/dessert" />
 </menu>

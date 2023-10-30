@@ -7,33 +7,38 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.navigation.Navigation
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.qrcard.R
 import com.qrcard.domain.Item
+import com.qrcard.iu.fragment.image.RoundedCornersTransformation
 import com.squareup.picasso.Picasso
 
-class ItemAdapter(private val itens : List<Item>) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(private val itens : List<Item>, private val navController: NavController) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     var itemLister : (Item) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false)
         return ViewHolder(view)
+
     }
+
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var dados : Item
 
         holder.apply {
             nome.text = itens[position].nome
-            preco.text = itens[position].preco
+            preco.text = "R$ " + itens[position].preco
 
             itens[position].run{
                 dados = Item(
                     id = id,
                     nome = nome,
                     preco = preco,
+                    categoria = categoria,
                     descricao = descricao,
                     urlPhoto = urlPhoto
                 )
@@ -41,7 +46,8 @@ class ItemAdapter(private val itens : List<Item>) : RecyclerView.Adapter<ItemAda
 
             Picasso.get()
                 .load(itens[position].urlPhoto)
-                .resize(370, 350)
+                .resize(270, 250)
+                .transform(RoundedCornersTransformation(20))
                 .into(ivPhoto)
 
             btnCard.setOnClickListener {
@@ -49,15 +55,13 @@ class ItemAdapter(private val itens : List<Item>) : RecyclerView.Adapter<ItemAda
                 val bundle = Bundle()
                 bundle.putParcelable("item", dados)
 
-                val navController = Navigation.findNavController(holder.itemView)
                 navController.navigate(R.id.go_to_detailActivity, bundle)
             }
+            }
         }
-    }
-
-    override fun getItemCount(): Int {
-        return itens.size
-    }
+        override fun getItemCount(): Int {
+            return itens.size
+        }
 
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){

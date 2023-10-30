@@ -4,12 +4,24 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 
-@Parcelize
-data class Item (
+
+data class BuyItem (
     val id : String,
     val nome : String,
     val categoria: String,
+    var quantidade : Int,
     val preco : String,
     val descricao : String,
     val urlPhoto : String
-) : Parcelable
+) {
+    fun increment(){
+        quantidade += 1;
+    }
+
+
+    fun decrement(){
+        if(quantidade > 0){
+            quantidade -= 1;
+        }
+    }
+}
