@@ -16,7 +16,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class AllFragment : Fragment() {
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewMain: MainViewModel by activityViewModels()
 
     private lateinit var itemAdapter: ItemAdapter
 
@@ -34,7 +34,7 @@ class AllFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList("itemList", ArrayList(viewModel.getListItens()))
+        outState.putParcelableArrayList("itemList", ArrayList(viewMain.getListItens()))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,12 +42,17 @@ class AllFragment : Fragment() {
 
         setupList(emptyList())
 
-        viewModel.getItemListLiveData().observe(viewLifecycleOwner) { itemList ->
+        viewMain.getItemListLiveData().observe(viewLifecycleOwner) { itemList ->
             setupList(itemList)
         }
+
+
+        viewMain.searchString.observe(viewLifecycleOwner) {
+            setupList(viewMain.getListItens(), it)
+        }
     }
-    fun setupList(lista : List<Item>){
-        val navController = viewModel.getNav()
+    private fun setupList(lista : List<Item>){
+        val navController = viewMain.getNav()
         val itemAdapter = navController?.let { ItemAdapter(lista, it) }
 
         binding.rvAllItens.apply {
@@ -55,6 +60,23 @@ class AllFragment : Fragment() {
             isVisible = true
         }
     }
+
+
+    private fun setupList(lista: List<Item>, filtro: String) {
+        val navController = viewMain.getNav()
+
+        val filteredList = lista.filter { item ->
+            item.nome.contains(filtro, ignoreCase = true)
+        }
+
+        val itemAdapter = navController?.let { ItemAdapter(filteredList, it) }
+
+        binding.rvAllItens.apply {
+            adapter = itemAdapter
+            isVisible = true
+        }
+    }
+
 
 
 //    override fun onResume() {

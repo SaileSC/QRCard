@@ -12,7 +12,8 @@ data class BuyItem (
     var quantidade : Int,
     val preco : String,
     val descricao : String,
-    val urlPhoto : String
+    val urlPhoto : String,
+    var isFavorite : Boolean
 ) {
     fun increment(){
         quantidade += 1;

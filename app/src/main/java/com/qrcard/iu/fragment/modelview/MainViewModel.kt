@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.qrcard.data.FavoriteItens
 import com.qrcard.domain.BuyItem
 import com.qrcard.domain.Item
 import com.qrcard.domain.User
@@ -31,6 +32,7 @@ class MainViewModel(
 
 
     //navigation para o adapter (para resolver)
+    private var navController: NavController? = null
     fun setNav(navController: NavController){
         this.navController = navController
     }
@@ -40,9 +42,6 @@ class MainViewModel(
 
 
     //listBuy
-
-    private var navController: NavController? = null
-
     private val _buyItemList = MutableLiveData<List<BuyItem>>()
     val buyItemList : LiveData<List<BuyItem>> = _buyItemList
 
@@ -108,6 +107,11 @@ class MainViewModel(
         _buyItemList.value = buyItens
     }
 
+    fun resetBuyList(){
+        val buyItens = mutableListOf<BuyItem>()
+        _buyItemList.value = buyItens
+    }
+
 
     // user
     val user =  User(
@@ -122,5 +126,22 @@ class MainViewModel(
 
     fun getPerfil() : User{
         return user
+    }
+
+
+    //string de busca
+    val searchString = MutableLiveData<String>()
+
+    //lista de ids favoritados
+    private val _itensFavoritos =  FavoriteItens()
+
+    val itensFavoritos : LiveData<FavoriteItens> = MutableLiveData(_itensFavoritos)
+
+    fun observerFavoriteList() : LiveData<FavoriteItens>  {
+        return itensFavoritos
+    }
+
+    fun getFavoriteList() : FavoriteItens  {
+        return itensFavoritos.value ?: FavoriteItens()
     }
 }

@@ -11,5 +11,6 @@ data class Item (
     val categoria: String,
     val preco : String,
     val descricao : String,
-    val urlPhoto : String
+    val urlPhoto : String,
+    var isFavorite : Boolean
 ) : Parcelable

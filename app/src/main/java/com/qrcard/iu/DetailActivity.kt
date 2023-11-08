@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.qrcard.R
 import com.qrcard.databinding.DetailItemFragmentBinding
@@ -21,6 +22,8 @@ class DetailActivity : Fragment() {
     private val binding by lazy { DetailItemFragmentBinding.inflate(layoutInflater) }
 
     private val viewMain: MainViewModel by activityViewModels()
+
+    private lateinit var item : Item
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,18 +41,17 @@ class DetailActivity : Fragment() {
 
 
     fun setupActions(){
+        val navController = findNavController()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.go_to_mainScreen)
         }
 
         binding.ivClose.setOnClickListener {
-            val navController = findNavController()
             navController.navigate(R.id.go_to_mainScreen)
         }
 
         binding.btnAddItem.setOnClickListener {
-            val item = arguments?.getParcelable<Item>("item")
-            item?.let{
+            item.let{
                 view?.let { it1 ->
                     viewMain.setItemBuy(
                         it1.context,
@@ -60,27 +62,49 @@ class DetailActivity : Fragment() {
                             preco = it.preco,
                             categoria = it.categoria,
                             descricao = it.descricao,
-                            urlPhoto = it.urlPhoto
+                            urlPhoto = it.urlPhoto,
+                            isFavorite = it.isFavorite
+
                         )
                     )
+                }
+            }
+            navController.navigateUp()
+        }
+
+
+        binding.apply {
+            ivFavorite.setOnClickListener{
+                item.isFavorite = !item.isFavorite
+                if (item.isFavorite) {
+                    ivFavorite.setImageResource(R.drawable.ic_favorite_true)
+
+                } else {
+                    ivFavorite.setImageResource(R.drawable.ic_favorite)
+
                 }
             }
         }
     }
 
     private fun loadBundle() {
-        val item = arguments?.getParcelable<Item>("item")
-
+        item = arguments?.getParcelable<Item>("item")!!
         binding.run {
-            tvItemName.text = item?.nome
-            tvItemDescription.text = item?.descricao
+            tvItemName.text = item.nome
+            tvItemDescription.text = item.descricao
             tvItemPrice.text = "R$ " + item?.preco
 
+            if (item.isFavorite) {
+                ivFavorite.setImageResource(R.drawable.ic_favorite_true)
+            }
+
             Picasso.get()
-                .load(item?.urlPhoto)
+                .load(item.urlPhoto)
                 .fit()
                 .transform(RoundedCornersTransformation(20))
                 .into(ivItemImage)
+
+
         }
     }
 }

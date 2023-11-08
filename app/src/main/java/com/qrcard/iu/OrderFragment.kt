@@ -60,14 +60,14 @@ class OrderFragment : Fragment() {
             navController.navigate(R.id.go_to_paymentMethodFragment)
         }
 
-        binding.run {
-            tvListValues.setOnClickListener {
-                tvListValues.maxLines = Integer.MAX_VALUE
+        var isExpanded = false
+        binding.tvListValues.setOnClickListener {
+            if (isExpanded) {
+                binding.tvListValues.maxLines = 2
+            } else {
+                binding.tvListValues.maxLines = Integer.MAX_VALUE
             }
-
-            tvListValues.setOnClickListener {
-                tvListValues.maxLines = 2
-            }
+            isExpanded = !isExpanded
         }
     }
     fun setupList(){

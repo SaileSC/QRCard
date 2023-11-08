@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="@id/iv_point_map"
         app:layout_constraintEnd_toEndOf="@id/iv_point_map"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_select_restaurant"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -51,6 +51,7 @@ class SucessOrderFragment : Fragment() {
     }
 
     private fun setupActions(){
+        viewMain.resetBuyList()
         val navController = findNavController()
         binding.ivClose.setOnClickListener{
             navController.navigate(R.id.go_to_mainScreen)

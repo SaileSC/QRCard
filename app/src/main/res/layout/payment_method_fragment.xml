@@ -52,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@id/v_line1"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_debit_method"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@id/v_line2"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_credit_method"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@id/v_line3"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_pix_method"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
         app:layout_constraintTop_toBottomOf="@id/v_line5"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_attable_method"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -1,11 +1,14 @@
 package com.qrcard.iu
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -38,6 +41,12 @@ class MainScreen  : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navigation()
         setupActions()
+        searchString()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewMain.searchString.value = ""
     }
 
     private fun navigation() {
@@ -63,6 +72,26 @@ class MainScreen  : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             val activity = requireActivity()
             activity.moveTaskToBack(true)
+        }
+    }
+
+    fun searchString(){
+        binding.apply {
+            etSearchItem.addTextChangedListener(object  : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    //Chamado antes de alterar o texto, é obrigatorio.
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    val text = s.toString()
+                    viewMain.searchString.value = text
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    //Chamado depois de alterar o texto, é obrigatorio.
+                }
+
+            })
         }
     }
 }
