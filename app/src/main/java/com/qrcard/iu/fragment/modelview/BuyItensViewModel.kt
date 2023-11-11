@@ -11,40 +11,10 @@ import com.qrcard.domain.BuyItem
 import com.qrcard.domain.Item
 import com.qrcard.domain.User
 
-class MainViewModel(
-    private val initialList: List<Item> = emptyList(),
+class BuyItensViewModel(
 ) : ViewModel() {
-
-    //itemList
-    private var itemList: MutableLiveData<List<Item>> = MutableLiveData()
-
-    fun setListItens(items: List<Item>) {
-        itemList.value = items
-    }
-
-    fun getListItens() : List<Item>{
-        return itemList.value.orEmpty().toMutableList()
-    }
-
-    fun getItemListLiveData(): LiveData<List<Item>> {
-        return itemList
-    }
-
-
-    //navigation para o adapter (para resolver)
-    private var navController: NavController? = null
-    fun setNav(navController: NavController){
-        this.navController = navController
-    }
-    fun getNav() : NavController?{
-        return this.navController
-    }
-
-
-    //listBuy
     private val _buyItemList = MutableLiveData<List<BuyItem>>()
     val buyItemList : LiveData<List<BuyItem>> = _buyItemList
-
 
     fun setItemBuy(context: Context, item: BuyItem) {
         val buyItens = _buyItemList.value.orEmpty().toMutableList()
@@ -110,38 +80,5 @@ class MainViewModel(
     fun resetBuyList(){
         val buyItens = mutableListOf<BuyItem>()
         _buyItemList.value = buyItens
-    }
-
-
-    // user
-    val user =  User(
-        nome = "",
-        email = ""
-    )
-
-    fun setPerfil(nome : String, email : String){
-        user.nome = nome
-        user.email = email
-    }
-
-    fun getPerfil() : User{
-        return user
-    }
-
-
-    //string de busca
-    val searchString = MutableLiveData<String>()
-
-    //lista de ids favoritados
-    private val _itensFavoritos =  FavoriteItens()
-
-    val itensFavoritos : LiveData<FavoriteItens> = MutableLiveData(_itensFavoritos)
-
-    fun observerFavoriteList() : LiveData<FavoriteItens>  {
-        return itensFavoritos
-    }
-
-    fun getFavoriteList() : FavoriteItens  {
-        return itensFavoritos.value ?: FavoriteItens()
     }
 }

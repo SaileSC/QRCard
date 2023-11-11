@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import com.qrcard.databinding.AllFragmentBinding
 import com.qrcard.domain.Item
-import com.qrcard.iu.fragment.modelview.MainViewModel
 import com.qrcard.iu.fragment.adapter.ItemAdapter
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.qrcard.iu.fragment.modelview.ActionsViewModel
+import com.qrcard.iu.fragment.modelview.ItensViewModel
 
 class AllFragment : Fragment() {
-    private val viewMain: MainViewModel by activityViewModels()
+    private val ItensView : ItensViewModel by activityViewModels()
+
+    private val ActionsView : ActionsViewModel by activityViewModels()
 
     private lateinit var itemAdapter: ItemAdapter
 
@@ -34,7 +34,7 @@ class AllFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList("itemList", ArrayList(viewMain.getListItens()))
+        outState.putParcelableArrayList("itemList", ArrayList(ItensView.getListItens()))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,17 +42,19 @@ class AllFragment : Fragment() {
 
         setupList(emptyList())
 
-        viewMain.getItemListLiveData().observe(viewLifecycleOwner) { itemList ->
-            setupList(itemList)
+        ItensView.run{
+            getItemListLiveData().observe(viewLifecycleOwner) { itemList ->
+                setupList(itemList)
+            }
         }
 
 
-        viewMain.searchString.observe(viewLifecycleOwner) {
-            setupList(viewMain.getListItens(), it)
+        ActionsView.searchString.observe(viewLifecycleOwner) {
+            setupList(ItensView.getListItens(), it)
         }
     }
     private fun setupList(lista : List<Item>){
-        val navController = viewMain.getNav()
+        val navController = ActionsView.getNav()
         val itemAdapter = navController?.let { ItemAdapter(lista, it) }
 
         binding.rvAllItens.apply {
@@ -63,7 +65,7 @@ class AllFragment : Fragment() {
 
 
     private fun setupList(lista: List<Item>, filtro: String) {
-        val navController = viewMain.getNav()
+        val navController = ActionsView.getNav()
 
         val filteredList = lista.filter { item ->
             item.nome.contains(filtro, ignoreCase = true)

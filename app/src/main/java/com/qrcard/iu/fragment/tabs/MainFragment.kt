@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.qrcard.databinding.AllFragmentBinding
 import com.qrcard.domain.Item
-import com.qrcard.iu.fragment.modelview.MainViewModel
 import com.qrcard.iu.fragment.adapter.ItemAdapter
+import com.qrcard.iu.fragment.modelview.ActionsViewModel
+import com.qrcard.iu.fragment.modelview.ItensViewModel
 
 class MainFragment : Fragment() {
-    private val viewMain: MainViewModel by activityViewModels()
+    private val ItensView : ItensViewModel by activityViewModels()
+    private val ActionsView : ActionsViewModel by activityViewModels()
 
     private lateinit var itemAdapter: ItemAdapter
 
@@ -33,24 +35,24 @@ class MainFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList("itemList", ArrayList(viewMain.getListItens()))
+        outState.putParcelableArrayList("itemList", ArrayList(ItensView.getListItens()))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupList(emptyList())
 
-        viewMain.getItemListLiveData().observe(viewLifecycleOwner) { itemList ->
+        ItensView.getItemListLiveData().observe(viewLifecycleOwner) { itemList ->
             filterList = itemList.filter { item -> item.categoria == "principal"}
             setupList(filterList)
         }
 
-        viewMain.searchString.observe(viewLifecycleOwner) {
+        ActionsView.searchString.observe(viewLifecycleOwner) {
             setupList(filterList, it)
         }
     }
     fun setupList(lista : List<Item>){
-        val navController = viewMain.getNav()
+        val navController = ActionsView.getNav()
         val itemAdapter = navController?.let { ItemAdapter(lista, it) }
 
         binding.rvAllItens.apply {
@@ -60,7 +62,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setupList(lista: List<Item>, filtro: String) {
-        val navController = viewMain.getNav()
+        val navController = ActionsView.getNav()
 
         val filteredList = lista.filter { item ->
             item.nome.contains(filtro, ignoreCase = true)

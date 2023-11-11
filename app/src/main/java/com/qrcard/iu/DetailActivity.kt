@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.qrcard.R
 import com.qrcard.databinding.DetailItemFragmentBinding
 import com.qrcard.domain.BuyItem
 import com.qrcard.domain.Item
 import com.qrcard.iu.fragment.image.RoundedCornersTransformation
-import com.qrcard.iu.fragment.modelview.MainViewModel
+import com.qrcard.iu.fragment.modelview.BuyItensViewModel
 import com.squareup.picasso.Picasso
 
 class DetailActivity : Fragment() {
 
     private val binding by lazy { DetailItemFragmentBinding.inflate(layoutInflater) }
 
-    private val viewMain: MainViewModel by activityViewModels()
+    private val buyItensView:  BuyItensViewModel by activityViewModels()
+
 
     private lateinit var item : Item
 
@@ -43,17 +43,17 @@ class DetailActivity : Fragment() {
     fun setupActions(){
         val navController = findNavController()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.go_to_mainScreen)
+            navController.navigateUp()
         }
 
         binding.ivClose.setOnClickListener {
-            navController.navigate(R.id.go_to_mainScreen)
+            navController.navigateUp()
         }
 
         binding.btnAddItem.setOnClickListener {
             item.let{
                 view?.let { it1 ->
-                    viewMain.setItemBuy(
+                    buyItensView.setItemBuy(
                         it1.context,
                         BuyItem(
                             id = it.id,

@@ -7,16 +7,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.qrcard.R
 import com.qrcard.domain.Item
 import com.qrcard.iu.fragment.image.RoundedCornersTransformation
-import com.qrcard.iu.fragment.modelview.MainViewModel
+import com.qrcard.iu.fragment.modelview.ItensViewModel
 import com.squareup.picasso.Picasso
 
-class ItemAdapter(private val itens : List<Item>, private val navController: NavController) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(
+    private val itens : List<Item>,
+    private val navController: NavController
+) : RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
     var itemLister : (Item) -> Unit = {}
 
@@ -35,17 +37,6 @@ class ItemAdapter(private val itens : List<Item>, private val navController: Nav
                 icFavorite.setImageResource(R.drawable.ic_favorite_true)
             }
 
-            itens[position].run{
-                dados = Item(
-                    id = id,
-                    nome = nome,
-                    preco = preco,
-                    categoria = categoria,
-                    descricao = descricao,
-                    urlPhoto = urlPhoto,
-                    isFavorite = isFavorite
-                )
-            }
             Picasso.get()
                 .load(itens[position].urlPhoto)
                 .resize(270, 250)
@@ -55,6 +46,8 @@ class ItemAdapter(private val itens : List<Item>, private val navController: Nav
 
             icFavorite.setOnClickListener{
                 itens[position].isFavorite = !itens[position].isFavorite
+
+
                 if (itens[position].isFavorite) {
                     icFavorite.setImageResource(R.drawable.ic_favorite_true)
                 } else {
@@ -64,20 +57,18 @@ class ItemAdapter(private val itens : List<Item>, private val navController: Nav
 
 
             btnCard.setOnClickListener {
-
                 val bundle = Bundle()
-                bundle.putParcelable("item", dados)
-
+                bundle.putParcelable("item", itens[position])
                 navController.navigate(R.id.go_to_detailActivity, bundle)
             }
-            }
-
         }
 
+    }
 
-        override fun getItemCount(): Int {
-            return itens.size
-        }
+
+    override fun getItemCount(): Int {
+        return itens.size
+    }
 
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){

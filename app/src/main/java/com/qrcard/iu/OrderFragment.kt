@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,13 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.qrcard.R
 import com.qrcard.databinding.OrderFinalizeFragmentBinding
 import com.qrcard.iu.fragment.adapter.ItemBuyAdapter
-import com.qrcard.iu.fragment.modelview.MainViewModel
+import com.qrcard.iu.fragment.modelview.BuyItensViewModel
 
 
 class OrderFragment : Fragment() {
 
     private val binding by lazy { OrderFinalizeFragmentBinding.inflate(layoutInflater) }
-    private val viewMain : MainViewModel by activityViewModels()
+    private val buyItens : BuyItensViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,24 +33,26 @@ class OrderFragment : Fragment() {
         setupActions()
         setupList()
 
-        viewMain.buyItemList.observe(viewLifecycleOwner) {
+        buyItens.buyItemList.observe(viewLifecycleOwner) {
             loadScreen()
         }
     }
 
 
     private fun loadScreen(){
-        binding.tvListValues.text = viewMain.getBuyItensCheck()
-        binding.tvTotalValue.text = viewMain.getTotal()
+        binding.apply {
+            tvListValues.text = buyItens.getBuyItensCheck()
+            tvTotalValue.text = buyItens.getTotal()
+        }
     }
     private fun setupActions(){
+        val navController = findNavController()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.go_to_mainScreen)
+            navController.navigateUp()
         }
 
         binding.ivClose.setOnClickListener {
-            val navController = findNavController()
-            navController.navigate(R.id.go_to_mainScreen)
+            navController.navigateUp()
         }
 
         binding.btnOrderPayment.setOnClickListener {
@@ -71,8 +71,8 @@ class OrderFragment : Fragment() {
         }
     }
     fun setupList(){
-        val lista = viewMain.getBuyItemList().toList()
-        val itemBuyAdapter = ItemBuyAdapter(lista,viewMain)
+        val lista = buyItens.getBuyItemList().toList()
+        val itemBuyAdapter = ItemBuyAdapter(lista,buyItens)
 
         binding.rvOrderItens.apply {
             isVisible = true

@@ -5,10 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
-import androidx.activity.viewModels
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.qrcard.R
 import com.qrcard.data.ItensApi
 import com.qrcard.databinding.LoadFragmentBinding
-import com.qrcard.databinding.OrderFinalizeFragmentBinding
 import com.qrcard.domain.Item
-import com.qrcard.iu.fragment.adapter.ItemBuyAdapter
-import com.qrcard.iu.fragment.modelview.MainViewModel
+import com.qrcard.iu.fragment.modelview.ItensViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -32,7 +27,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class LoadFragment : Fragment() {
 
     private val binding by lazy { LoadFragmentBinding.inflate(layoutInflater) }
-    private val viewMain : MainViewModel by activityViewModels()
+
+    private val ListItensView : ItensViewModel by activityViewModels()
 
     lateinit var itensApi : ItensApi
 
@@ -82,7 +78,7 @@ class LoadFragment : Fragment() {
                 if(response.isSuccessful){
                     binding.pbLoader.isGone = true
                     response.body()?.let {
-                        viewMain.setListItens(it)
+                        ListItensView.setListItens(it)
                     }
                 }else{
                     Toast.makeText(context, R.string.response_erro, Toast.LENGTH_LONG).show()

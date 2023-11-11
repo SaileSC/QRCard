@@ -6,9 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -19,13 +17,12 @@ import com.qrcard.R
 
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.qrcard.databinding.MainScreenFragmentBinding
-import com.qrcard.iu.fragment.modelview.MainViewModel
+import com.qrcard.iu.fragment.modelview.ActionsViewModel
 
 class MainScreen  : Fragment() {
 
 
-    private val viewMain: MainViewModel by activityViewModels()
-
+    private val ActionsView : ActionsViewModel by activityViewModels()
 
     private val binding by lazy { MainScreenFragmentBinding.inflate(layoutInflater) }
     private lateinit var navController : NavController
@@ -46,12 +43,13 @@ class MainScreen  : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewMain.searchString.value = ""
+
+        binding.etSearchItem.text = Editable.Factory.getInstance().newEditable(ActionsView.searchString.value ?: "")
     }
 
     private fun navigation() {
         navController = findNavController()
-        viewMain.setNav(navController)
+        ActionsView.setNav(navController)
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -84,7 +82,7 @@ class MainScreen  : Fragment() {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     val text = s.toString()
-                    viewMain.searchString.value = text
+                    ActionsView.searchString.value = text
                 }
 
                 override fun afterTextChanged(s: Editable?) {

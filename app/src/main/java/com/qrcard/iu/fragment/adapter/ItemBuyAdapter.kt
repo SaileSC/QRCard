@@ -1,27 +1,23 @@
 package com.qrcard.iu.fragment.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isGone
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.qrcard.R
-import com.qrcard.databinding.PurchasedItemCardBinding
 import com.qrcard.domain.BuyItem
 import com.qrcard.domain.Item
 import com.qrcard.iu.fragment.image.RoundedCornersTransformation
-import com.qrcard.iu.fragment.modelview.MainViewModel
+import com.qrcard.iu.fragment.modelview.BuyItensViewModel
 import com.squareup.picasso.Picasso
 
 class ItemBuyAdapter(
     private val itens: List<BuyItem>,
-    private val viewModel: MainViewModel,
+    private val BuyItensView: BuyItensViewModel,
 ) : RecyclerView.Adapter<ItemBuyAdapter.ViewHolder>() {
 
     var itemLister : (Item) -> Unit = {}
@@ -39,7 +35,7 @@ class ItemBuyAdapter(
 
             Picasso.get()
                 .load(itens[position].urlPhoto)
-                .resize(220, 200)
+                .resize(240, 220)
                 .transform(RoundedCornersTransformation(20))
                 .into(ivPhoto)
 
@@ -47,17 +43,17 @@ class ItemBuyAdapter(
 
 
             btnIncrement.setOnClickListener {
-                viewModel.increment(itens[position].id.toInt())
+                BuyItensView.increment(itens[position].id.toInt())
                 quantidade.text = itens[position].quantidade.toString()
             }
 
             btnDecrement.setOnClickListener {
-                viewModel.decrement(itens[position].id.toInt())
+                BuyItensView.decrement(itens[position].id.toInt())
                 quantidade.text = itens[position].quantidade.toString()
             }
 
             btnRemove.setOnClickListener {
-                viewModel.deleteBuyItem(itens[position].id.toInt())
+                BuyItensView.deleteBuyItem(itens[position].id.toInt())
                 cardView.isGone = true
             }
         }
