@@ -28,10 +28,16 @@ class RecovePasswordFragment : Fragment() {
     }
 
     private fun setupActions() {
-        val email = binding.etEmail.text
+        binding.apply {
+            btnRecover.setOnClickListener {
+                val email = etEmail.text.toString()
 
-        binding.btnRecover.setOnClickListener {
-            Toast.makeText(context, "link de recuperação enviado para $email", Toast.LENGTH_SHORT).show()
+                if(!email.contains("@") || email == ""){
+                    tilEmail.error = "Email invalido"
+                }else{
+                    Toast.makeText(context, "link de recuperação enviado para $email", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 }

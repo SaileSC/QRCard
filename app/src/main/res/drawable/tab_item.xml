@@ -11,7 +11,7 @@
                 <shape android:shape="rectangle">
                     <padding
                         android:bottom="8dp"/>
-                    <solid android:color="@android:color/darker_gray"/>
+                    <solid android:color="@color/brown_focused"/>
                     <corners
                         android:radius="10dp"/>
                 </shape>
@@ -19,7 +19,7 @@
             <!-- Estado da aba selecionada -->
             <item android:left="15dp" android:right="15dp"  android:state_selected="true">
                 <shape android:shape="rectangle">
-                    <solid android:color="@color/blue"/>
+                    <solid android:color="@color/brown"/>
                     <corners
                         android:radius="10dp"/>
                 </shape>

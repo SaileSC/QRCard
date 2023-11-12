@@ -23,6 +23,10 @@ class UserViewModel(
         return userLogin
     }
 
+    fun removeUser(){
+        userLogin = User("", "", "", "")
+    }
+
     fun singUpUser(user : User){
         userRetrofit.postUser(user)
     }

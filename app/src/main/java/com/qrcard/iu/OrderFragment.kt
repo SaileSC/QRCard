@@ -13,12 +13,14 @@ import com.qrcard.R
 import com.qrcard.databinding.OrderFinalizeFragmentBinding
 import com.qrcard.iu.fragment.adapter.ItemBuyAdapter
 import com.qrcard.iu.fragment.modelview.BuyItensViewModel
+import com.qrcard.iu.fragment.modelview.RestaurantViewModel
 
 
 class OrderFragment : Fragment() {
 
     private val binding by lazy { OrderFinalizeFragmentBinding.inflate(layoutInflater) }
-    private val buyItens : BuyItensViewModel by activityViewModels()
+    private val buyItensView : BuyItensViewModel by activityViewModels()
+    private val restaurantView : RestaurantViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,7 +35,7 @@ class OrderFragment : Fragment() {
         setupActions()
         setupList()
 
-        buyItens.buyItemList.observe(viewLifecycleOwner) {
+        buyItensView.buyItemList.observe(viewLifecycleOwner) {
             loadScreen()
         }
     }
@@ -41,8 +43,9 @@ class OrderFragment : Fragment() {
 
     private fun loadScreen(){
         binding.apply {
-            tvListValues.text = buyItens.getBuyItensCheck()
-            tvTotalValue.text = buyItens.getTotal()
+            tvListValues.text = buyItensView.getBuyItensCheck()
+            tvTotalValue.text = buyItensView.getTotal()
+            tvTableValue.text = restaurantView.restaurantTable()
         }
     }
     private fun setupActions(){
@@ -56,7 +59,6 @@ class OrderFragment : Fragment() {
         }
 
         binding.btnOrderPayment.setOnClickListener {
-            val navController = findNavController()
             navController.navigate(R.id.go_to_paymentMethodFragment)
         }
 
@@ -71,8 +73,8 @@ class OrderFragment : Fragment() {
         }
     }
     fun setupList(){
-        val lista = buyItens.getBuyItemList().toList()
-        val itemBuyAdapter = ItemBuyAdapter(lista,buyItens)
+        val lista = buyItensView.getBuyItemList().toList()
+        val itemBuyAdapter = ItemBuyAdapter(lista,buyItensView)
 
         binding.rvOrderItens.apply {
             isVisible = true

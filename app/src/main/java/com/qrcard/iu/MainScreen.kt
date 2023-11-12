@@ -18,11 +18,16 @@ import com.qrcard.R
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.qrcard.databinding.MainScreenFragmentBinding
 import com.qrcard.iu.fragment.modelview.ActionsViewModel
+import com.qrcard.iu.fragment.modelview.BuyItensViewModel
+import com.qrcard.iu.fragment.modelview.UserViewModel
 
 class MainScreen  : Fragment() {
 
 
     private val ActionsView : ActionsViewModel by activityViewModels()
+    private val UserView : UserViewModel by activityViewModels()
+    private val BuyItensView : BuyItensViewModel by activityViewModels()
+
 
     private val binding by lazy { MainScreenFragmentBinding.inflate(layoutInflater) }
     private lateinit var navController : NavController
@@ -59,11 +64,21 @@ class MainScreen  : Fragment() {
 
     private fun setupActions(){
         binding.fabListBuy.setOnClickListener{
-            navController.navigate(R.id.go_to_orderActivity)
+            if(!BuyItensView.order){
+                navController.navigate(R.id.go_to_orderActivity)
+            }else{
+                navController.navigate(R.id.go_to_progressOrderFragment)
+            }
         }
 
         binding.ivPerfil.setOnClickListener{
-            navController.navigate(R.id.go_to_singInFragment)
+
+            if(UserView.getUser().nome == ""){
+                navController.navigate(R.id.go_to_singInFragment)
+            }else{
+                navController.navigate(R.id.go_to_perfilFragment)
+            }
+
         }
 
 

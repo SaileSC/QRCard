@@ -1,10 +1,17 @@
 package com.qrcard.iu.fragment.modelview
 
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.qrcard.data.Retrofit.RestaurantRetrofit
 import com.qrcard.domain.Item
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class ItensViewModel(
@@ -12,9 +19,19 @@ class ItensViewModel(
 ) : ViewModel() {
     //itemList
     private var itemList: MutableLiveData<List<Item>> = MutableLiveData()
+    val restaurant = RestaurantRetrofit()
 
-    fun setListItens(items: List<Item>) {
-        itemList.value = items
+
+    fun setListItens() {
+        val coroutineScope = CoroutineScope(Dispatchers.IO)
+        coroutineScope.launch {
+            try {
+                val items = restaurant.getAllItens()
+                itemList.postValue(items)
+            } catch (e: Exception) {
+                Log.e("response Itens : ", e.toString())
+            }
+        }
     }
 
     fun getListItens() : List<Item>{

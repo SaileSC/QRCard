@@ -16,7 +16,7 @@ import com.qrcard.iu.fragment.image.RoundedCornersTransformation
 import com.qrcard.iu.fragment.modelview.BuyItensViewModel
 import com.squareup.picasso.Picasso
 
-class DetailActivity : Fragment() {
+class DetailFragment : Fragment() {
 
     private val binding by lazy { DetailItemFragmentBinding.inflate(layoutInflater) }
 

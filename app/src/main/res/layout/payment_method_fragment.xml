@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_background">
 
     <TextView
         android:id="@+id/tv_title"
@@ -13,7 +14,8 @@
         android:text="@string/methopaymant"
         style="@style/TextAppearance.MaterialComponents.Headline6"
         android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line1"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/v_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -26,13 +28,13 @@
         android:layout_marginEnd="15dp"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/icone_style"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/v_line1"/>
+        app:layout_constraintBottom_toTopOf="@id/v_line"/>
 
 
     <View
-        android:id="@+id/v_line1"
+        android:id="@+id/v_line"
         android:layout_width="wrap_content"
         android:layout_height="3dp"
         android:layout_marginTop="60dp"
@@ -43,135 +45,151 @@
 
 
 
-    <ImageView
-        android:id="@+id/iv_debit_method"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/debit_method"
-        android:layout_margin="30dp"
-        app:layout_constraintTop_toBottomOf="@id/v_line1"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/v_line"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_debit_method"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/debit"
-        android:background="@drawable/button_layout"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="35dp"
-        app:layout_constraintTop_toTopOf="@id/iv_debit_method"
-        app:layout_constraintBottom_toBottomOf="@id/iv_debit_method"
-        app:layout_constraintStart_toEndOf="@id/iv_debit_method"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/detail_background">
 
-    <View
-        android:id="@+id/v_line2"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_debit_method"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <ImageView
+                android:id="@+id/iv_debit_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/debit_method" />
 
-    <ImageView
-        android:id="@+id/iv_credit_method"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/credit_method"
-        android:layout_margin="30dp"
-        app:layout_constraintTop_toBottomOf="@id/v_line2"
-        app:layout_constraintStart_toStartOf="parent"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_debit_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/debit"
+                android:background="@drawable/button_layout"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="35dp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_credit_method"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/credit"
-        android:background="@drawable/button_layout"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="35dp"
-        app:layout_constraintTop_toTopOf="@id/iv_credit_method"
-        app:layout_constraintBottom_toBottomOf="@id/iv_credit_method"
-        app:layout_constraintStart_toEndOf="@id/iv_credit_method"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/v_line3"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_credit_method"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <ImageView
-        android:id="@+id/iv_pix_method"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/pix_method"
-        android:layout_margin="30dp"
-        app:layout_constraintTop_toBottomOf="@id/v_line3"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/detail_background">
+            <ImageView
+                android:id="@+id/iv_credit_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/credit_method"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="252dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_pix_method"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/pix"
-        android:background="@drawable/button_layout"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="35dp"
-        app:layout_constraintTop_toTopOf="@id/iv_pix_method"
-        app:layout_constraintBottom_toBottomOf="@id/iv_pix_method"
-        app:layout_constraintStart_toEndOf="@id/iv_pix_method"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_credit_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:text="@string/credit"
+                android:background="@drawable/button_layout"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="35dp"
+                app:layout_constraintTop_toTopOf="@id/iv_credit_method"
+                app:layout_constraintBottom_toBottomOf="@id/iv_credit_method"
+                app:layout_constraintStart_toEndOf="@id/iv_credit_method"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:id="@+id/v_line5"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_pix_method"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    <ImageView
-        android:id="@+id/iv_attable_method"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/attable_method"
-        android:layout_margin="30dp"
-        app:layout_constraintTop_toBottomOf="@id/v_line5"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/detail_background">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_attable_method"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/attable"
-        android:background="@drawable/button_layout"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="35dp"
-        app:layout_constraintTop_toTopOf="@id/iv_attable_method"
-        app:layout_constraintBottom_toBottomOf="@id/iv_attable_method"
-        app:layout_constraintStart_toEndOf="@id/iv_attable_method"
-        app:layout_constraintEnd_toEndOf="parent" />
+            <ImageView
+                android:id="@+id/iv_pix_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/pix_method"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="410dp" />
 
-    <View
-        android:id="@+id/v_line6"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/iv_attable_method"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_pix_method"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:text="@string/pix"
+                android:background="@drawable/button_layout"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="35dp"
+                app:layout_constraintTop_toTopOf="@id/iv_pix_method"
+                app:layout_constraintBottom_toBottomOf="@id/iv_pix_method"
+                app:layout_constraintStart_toEndOf="@id/iv_pix_method"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/detail_background">
+
+            <ImageView
+                android:id="@+id/iv_attable_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/attable_method"
+                android:layout_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="568dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_attable_method"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/attable"
+                android:background="@drawable/button_layout"
+                android:textColor="@color/white"
+                android:layout_marginHorizontal="35dp"
+                app:layout_constraintTop_toTopOf="@id/iv_attable_method"
+                app:layout_constraintBottom_toBottomOf="@id/iv_attable_method"
+                app:layout_constraintStart_toEndOf="@id/iv_attable_method"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+
+
 
 
 

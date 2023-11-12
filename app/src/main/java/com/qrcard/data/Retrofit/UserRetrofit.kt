@@ -16,16 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class UserRetrofit(
 ) {
-    // Crie uma instância do Retrofit
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://teste-web6584.onrender.com")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    // Crie uma instância do serviço
-    private val userService = retrofit.create(UserApi::class.java)
 
-    // Faça a chamada assíncrona para criar o usuário
+    private val userService = retrofit.create(UserApi::class.java)
 
     fun postUser(user: User) {
         userService.createUser(user).enqueue(object : Callback<Void> {
@@ -45,12 +42,9 @@ class UserRetrofit(
 
 
     suspend fun validateUser(login: String, password: String): User {
-
         return withContext(Dispatchers.IO) {
-            // Inicia a chamada assíncrona
             val response = userService.validarLogin(login, password).execute()
 
-            // Verifica se a resposta foi bem-sucedida
             if (response.isSuccessful) {
                 response.body() ?: throw RuntimeException("Corpo da resposta nulo")
             } else {

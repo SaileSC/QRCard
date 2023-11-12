@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/custom_background">
 
     <TextView
         android:id="@+id/tv_title"
@@ -12,6 +13,7 @@
         android:layout_height="wrap_content"
         android:text="@string/order_finished"
         style="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textColor="@color/white"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@id/v_line"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,15 +28,14 @@
         android:layout_marginEnd="15dp"
         android:clickable="true"
         android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/icone_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/v_line"/>
-
 
     <View
         android:id="@+id/v_line"
         android:layout_width="wrap_content"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:layout_marginTop="60dp"
         android:background="@color/gray"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,177 +44,166 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_order_itens"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/v_line"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lc_details_order"
         tools:listitem="@layout/purchased_item_card"
-        app:layout_constraintBottom_toTopOf="@id/v_line8"/>
+        tools:visibility="visible" />
 
-    <View
-        android:id="@+id/v_line8"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line7"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <View
-        android:id="@+id/v_line7"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_order_observation_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/tv_order_observation_text"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lc_details_order"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/order_observation"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@id/ed_input_order_observation"
-        app:layout_constraintStart_toStartOf="@id/btn_order_payment"/>
-
-    <EditText
-        android:id="@+id/ed_input_order_observation"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:hint="digite aqui suas observções"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/text_layout"
-        android:padding="8dp"
-        android:gravity="top"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@id/v_line6"
-        app:layout_constraintEnd_toEndOf="@id/btn_order_payment"
-        app:layout_constraintStart_toStartOf="@id/btn_order_payment" />
-
-    <View
-        android:id="@+id/v_line6"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_table_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tv_table_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/table"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line5"
-        app:layout_constraintStart_toStartOf="@id/btn_order_payment"/>
-
-    <TextView
-        android:id="@+id/tv_table_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        tools:text="5"
-        android:paddingVertical="5dp"
-        android:paddingHorizontal="20dp"
-        android:background="@drawable/text_layout"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line5"
-        app:layout_constraintEnd_toEndOf="@id/btn_order_payment"/>
-
-
-    <View
-        android:id="@+id/v_line5"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_list_values"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tv_itens_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/itens"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/v_line5"
-        app:layout_constraintStart_toStartOf="@id/btn_order_payment"/>
-
-    <TextView
-        android:id="@+id/tv_list_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="1x R$ 40,00 \n2x R$ 20,00"
-        android:textSize="16sp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line4"
-        app:layout_constraintEnd_toEndOf="@id/btn_order_payment"
-        android:maxLines="3"
-        android:ellipsize="end"
-        android:clickable="true"
-        android:focusable="true"/>
-
-
-    <View
-        android:id="@+id/v_line4"
-        android:layout_width="wrap_content"
-        android:layout_height="3dp"
-        android:background="@color/gray"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/tv_total_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <TextView
-        android:id="@+id/tv_total_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/total"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line3"
-        app:layout_constraintStart_toStartOf="@id/btn_order_payment"/>
-
-
-    <TextView
-        android:id="@+id/tv_total_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16dp"
-        tools:text="R$ 80,00"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@id/v_line3"
-        app:layout_constraintEnd_toEndOf="@id/btn_order_payment"/>
-
-    <View
-        android:id="@+id/v_line3"
-        android:layout_width="wrap_content"
-        android:layout_height="8dp"
-        android:background="@color/gray"
-        android:layout_marginBottom="20dp"
+        android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@id/btn_order_payment"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:orientation="vertical">
 
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginVertical="4dp"
+            android:background="@drawable/detail_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_order_observation_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/order_observation"
+                android:textSize="16dp"
+                android:layout_marginHorizontal="4dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="6dp"/>
+
+            <EditText
+                android:id="@+id/ed_input_order_observation"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="digite aqui suas observções"
+                android:layout_marginHorizontal="4dp"
+                android:background="@drawable/text_layout"
+                android:padding="8dp"
+                android:gravity="top"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/detail_background"
+            android:padding="4dp"
+            android:layout_marginVertical="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_table_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:text="@string/table"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_table_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:layout_marginEnd="4dp"
+                tools:text="5"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/text_layout"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/detail_background"
+            android:padding="4dp"
+            android:layout_marginVertical="4dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tv_itens_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_gravity="top"
+                    android:layout_weight="1"
+                    android:text="@string/itens"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_list_values"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="1x R$ 40,00 \n2x R$ 20,00"
+                    android:textSize="16sp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginEnd="4dp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:id="@+id/v_line4"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginHorizontal="12dp"
+                android:background="@color/black"
+                android:layout_marginBottom="4dp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/tv_total_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/total"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tv_total_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:textSize="16dp"
+                    tools:text="R$ 80,00" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
     <androidx.appcompat.widget.AppCompatButton

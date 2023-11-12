@@ -64,4 +64,8 @@ dependencies {
     //Picasso
     implementation ("com.squareup.picasso:picasso:2.71828")
 
+    //ZXING
+    implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
+
+
 }

@@ -33,7 +33,7 @@ class SucessOrderFragment : Fragment() {
     }
 
     private fun setupActions(){
-        buyItensView.resetBuyList()
+        buyItensView.orderOn()
         val navController = findNavController()
         binding.ivClose.setOnClickListener{
             navController.navigate(R.id.go_to_mainScreen)

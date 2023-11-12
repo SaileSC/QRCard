@@ -19,6 +19,12 @@
         <action
             android:id="@+id/go_to_singInFragment"
             app:destination="@id/singInFragment" />
+        <action
+            android:id="@+id/go_to_perfilFragment"
+            app:destination="@id/perfilFragment" />
+        <action
+            android:id="@+id/go_to_progressOrderFragment"
+            app:destination="@id/progressOrderFragment" />
     </fragment>
 
 
@@ -37,7 +43,7 @@
 
     <fragment
         android:id="@+id/detailActivity"
-        android:name="com.qrcard.iu.DetailActivity"
+        android:name="com.qrcard.iu.DetailFragment"
         android:label="DetailActivity"
         tools:layout="@layout/detail_item_fragment">
         <action
@@ -52,6 +58,9 @@
         <action
             android:id="@+id/go_to_mainScreen"
             app:destination="@id/mainScreen" />
+        <action
+            android:id="@+id/go_to_readQRCodeFragment"
+            app:destination="@id/readQRCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentMethodFragment"
@@ -75,7 +84,7 @@
         android:id="@+id/singInFragment"
         android:name="com.qrcard.iu.SingInFragment"
         android:label="SingInFragment"
-        tools:layout="@layout/login_fragment">
+        tools:layout="@layout/sing_in_fragment">
         <action
             android:id="@+id/go_to_singUpFragment"
             app:destination="@id/singUpFragment" />
@@ -103,7 +112,25 @@
         android:id="@+id/perfilFragment"
         android:name="com.qrcard.iu.PerfilFragment"
         android:label="PerfilFragment"
-        tools:layout="@layout/perfil_fragment"/>
+        tools:layout="@layout/perfil_fragment">
+        <action
+            android:id="@+id/go_to_mainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/readQRCodeFragment"
+        android:name="com.qrcard.iu.ReadQRCodeFragment"
+        android:label="ReadQRCodeFragment"
+        tools:layout="@layout/qrcode_read_fragment">
+        <action
+            android:id="@+id/go_to_mainScreen"
+            app:destination="@id/mainScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/progressOrderFragment"
+        android:name="com.qrcard.iu.ProgressOrderFragment"
+        android:label="ProgressOrderFragment"
+        tools:layout="@layout/progress_order_fragment"/>
 </navigation>
 
 

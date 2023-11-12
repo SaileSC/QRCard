@@ -29,7 +29,6 @@ class BuyItensViewModel(
         }
     }
 
-
     fun getBuyItemList() : List<BuyItem>{
         return _buyItemList.value.orEmpty().toMutableList()
     }
@@ -45,6 +44,18 @@ class BuyItensViewModel(
         return string
     }
 
+
+    fun getBuyItensCheckNames() : String {
+        val buyItens = _buyItemList.value.orEmpty().toMutableList()
+        var string =""
+
+        for(item in buyItens){
+            string += "${item.quantidade}x ${item.nome}\n"
+        }
+
+        return string
+    }
+
     fun getTotal() : String {
         val buyItens = _buyItemList.value.orEmpty().toMutableList()
         var total = 0.00
@@ -55,7 +66,6 @@ class BuyItensViewModel(
 
         return "R$ $total"
     }
-
 
     fun increment(itemId : Int){
         val buyItens = _buyItemList.value.orEmpty().toMutableList()
@@ -80,5 +90,15 @@ class BuyItensViewModel(
     fun resetBuyList(){
         val buyItens = mutableListOf<BuyItem>()
         _buyItemList.value = buyItens
+    }
+
+    var order = false
+
+    fun orderOn(){
+        order = true
+    }
+
+    fun orderOff(){
+        order = false
     }
 }
