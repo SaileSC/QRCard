@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,9 +25,9 @@ import com.qrcard.iu.fragment.modelview.UserViewModel
 class MainScreen  : Fragment() {
 
 
-    private val ActionsView : ActionsViewModel by activityViewModels()
-    private val UserView : UserViewModel by activityViewModels()
-    private val BuyItensView : BuyItensViewModel by activityViewModels()
+    private val actionsView : ActionsViewModel by activityViewModels()
+    private val userView : UserViewModel by activityViewModels()
+    private val buyItensView : BuyItensViewModel by activityViewModels()
 
 
     private val binding by lazy { MainScreenFragmentBinding.inflate(layoutInflater) }
@@ -49,12 +50,12 @@ class MainScreen  : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.etSearchItem.text = Editable.Factory.getInstance().newEditable(ActionsView.searchString.value ?: "")
+        binding.etSearchItem.text = Editable.Factory.getInstance().newEditable(actionsView.searchString.value ?: "")
     }
 
     private fun navigation() {
         navController = findNavController()
-        ActionsView.setNav(navController)
+        actionsView.setNav(navController)
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -64,16 +65,18 @@ class MainScreen  : Fragment() {
 
     private fun setupActions(){
         binding.fabListBuy.setOnClickListener{
-            if(!BuyItensView.order){
+            if(!buyItensView.order && !buyItensView.getBuyItemList().isEmpty()){
                 navController.navigate(R.id.go_to_orderActivity)
-            }else{
+            }else if(buyItensView.order){
                 navController.navigate(R.id.go_to_progressOrderFragment)
+            }else{
+                Toast.makeText(context, "Adicione itens ao carrinho", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.ivPerfil.setOnClickListener{
 
-            if(UserView.getUser().nome == ""){
+            if(userView.getUser().nome == ""){
                 navController.navigate(R.id.go_to_singInFragment)
             }else{
                 navController.navigate(R.id.go_to_perfilFragment)
@@ -97,7 +100,7 @@ class MainScreen  : Fragment() {
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     val text = s.toString()
-                    ActionsView.searchString.value = text
+                    actionsView.searchString.value = text
                 }
 
                 override fun afterTextChanged(s: Editable?) {

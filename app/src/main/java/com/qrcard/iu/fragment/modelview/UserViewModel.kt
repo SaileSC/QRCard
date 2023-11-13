@@ -37,6 +37,7 @@ class UserViewModel(
             userLogin.email.isNotEmpty()
             true
         } catch (e: Exception) {
+            Log.e("Login error : ", e.toString())
             false
         }
     }
