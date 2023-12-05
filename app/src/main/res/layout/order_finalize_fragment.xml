@@ -57,6 +57,7 @@
         android:id="@+id/lc_details_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@id/btn_order_payment"
         android:orientation="vertical">

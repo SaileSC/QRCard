@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -32,14 +33,26 @@ class PerfilFragment : Fragment() {
         val user = UserView.getUser()
 
         binding.apply {
-            tvNome.text = "Nome : " + user.nome
+            tvNome.text = "Nome : " + user.name
             tvEmail.text = "Email : " + user.email
+
+            btnExitAcc.setOnClickListener {
+                UserView.removeUser()
+                findNavController().navigateUp()
+            }
+
+            btnReturn.setOnClickListener {
+                findNavController().navigate(R.id.go_to_mainScreen)
+            }
+
+            btnDeleteAcc.setOnClickListener {
+                if(UserView.deleteUser()){
+                    Toast.makeText(context, "Usuario deletado com sucesso...", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                }
+            }
         }
 
-        binding.btnExitAcc.setOnClickListener {
-            UserView.removeUser()
-            findNavController().navigateUp()
-        }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.go_to_mainScreen)

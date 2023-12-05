@@ -74,6 +74,7 @@ class DetailFragment : Fragment() {
 
 
         binding.apply {
+
             ivFavorite.setOnClickListener{
                 item.isFavorite = !item.isFavorite
                 if (item.isFavorite) {

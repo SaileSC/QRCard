@@ -1,10 +1,10 @@
 package com.qrcard.data.Retrofit
 
 import android.util.Log
-import androidx.fragment.app.activityViewModels
-import com.qrcard.data.UserApi
+import com.qrcard.data.IUserApi
 import com.qrcard.domain.User
-import com.qrcard.iu.fragment.modelview.BuyItensViewModel
+import com.qrcard.domain.UserCredentials
+import com.qrcard.iu.event.UserCreationListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -14,43 +14,67 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class UserRetrofit(
-) {
+class UserRetrofit() : IUserApi {
+    private var userCreationListener: UserCreationListener? = null
+    fun setUserCreationListener(listener: UserCreationListener) {
+        this.userCreationListener = listener
+    }
+
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://teste-web6584.onrender.com")
+        .baseUrl("http://192.168.1.10:8080/consumers/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
+    private val userService = retrofit.create(IUserApi::class.java)
 
-    private val userService = retrofit.create(UserApi::class.java)
+    override fun createUser(user: User): Call<User> {
+        val call = userService.createUser(user)
+        call.enqueue(object : Callback<User> {
 
-    fun postUser(user: User) {
-        userService.createUser(user).enqueue(object : Callback<Void> {
-            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
-                    Log.e("Login User :", "Usuário salvo com sucesso")
+                    Log.e("Create User :", "Usuário salvo com sucesso")
+                    userCreationListener?.onUserCreatedSuccessfully()
                 } else {
-                    Log.e("Login User :", "Ocorreu um erro ao adicionar ${response.code()}\"")
+                    Log.e("Create User :", "Erro ao adicionar codigo : ${response.code()}")
+                    userCreationListener?.onUserCreationFailed("Usuario já cadastrado")
                 }
             }
 
-            override fun onFailure(call: Call<Void>, erro: Throwable) {
-                Log.e("Login User :", "Erro na requisição: ${erro.message}")
+            override fun onFailure(call: Call<User>, erro: Throwable) {
+                val errorMessage = "Erro na requisição: ${erro.message}"
+                Log.e("Create User :", errorMessage)
+                userCreationListener?.onUserCreationFailed(errorMessage)
             }
         })
+        return call
     }
 
 
-    suspend fun validateUser(login: String, password: String): User {
+    override suspend fun validateUser(userCredentials: UserCredentials): Response<User> {
         return withContext(Dispatchers.IO) {
-            val response = userService.validarLogin(login, password).execute()
-
-            if (response.isSuccessful) {
-                response.body() ?: throw RuntimeException("Corpo da resposta nulo")
-            } else {
-                throw RuntimeException("Erro ao validar login. Código: ${response.code()}")
-            }
+            userService.validateUser(userCredentials)
         }
-
     }
+
+    override fun deleteUser(id: String): Call<Void> {
+        val call = userService.deleteUser(id)
+        call.enqueue(object : Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+                    Log.e("Delete User :", "Usuário deletado com sucesso")
+                }else{
+                    Log.e("Delete User :", "Erro ao deletar,  codigo : ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                val error = "Erro na requisição: ${t.message}"
+            }
+
+        })
+        return call
+    }
+
+
 }

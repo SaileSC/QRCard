@@ -1,8 +1,9 @@
 package com.qrcard.domain
 
 data class User (
-    var nome: String = "",
-    var login: String = "",
+    var id : String = "",
+    var name: String = "",
     var email: String = "",
-    var senha: String = ""
-)
+    var password: String = ""
+) {
+}

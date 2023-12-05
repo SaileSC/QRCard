@@ -12,12 +12,19 @@ import com.qrcard.data.Retrofit.UserRetrofit
 import com.qrcard.domain.BuyItem
 import com.qrcard.domain.Item
 import com.qrcard.domain.User
+import com.qrcard.domain.UserCredentials
+import com.qrcard.iu.event.UserCreationListener
 
 class UserViewModel(
 ) : ViewModel() {
 
     var userLogin = User("", "", "", "")
     val userRetrofit = UserRetrofit()
+
+    fun setUserCreationListener(listener: UserCreationListener){
+        userRetrofit.setUserCreationListener(listener)
+    }
+
 
     fun getUser() : User {
         return userLogin
@@ -28,18 +35,31 @@ class UserViewModel(
     }
 
     fun singUpUser(user : User){
-        userRetrofit.postUser(user)
+        userRetrofit.createUser(user)
     }
 
-    suspend fun singInUser(email: String, senha: String): Boolean {
-        return try {
-            userLogin = userRetrofit.validateUser(email, senha)
-            userLogin.email.isNotEmpty()
-            true
+    suspend fun singInUser(name: String, password: String): Boolean {
+        try {
+            val response = userRetrofit.validateUser(UserCredentials(name, password))
+            if (response.isSuccessful) {
+                userLogin  = response.body()!!
+                userLogin.name.isNotEmpty()
+                return true
+            } else {
+                Log.e("Login error : ", response.code().toString())
+            }
         } catch (e: Exception) {
             Log.e("Login error : ", e.toString())
-            false
+            return false
         }
+        return false
+        }
+
+
+    fun deleteUser() : Boolean{
+        return userRetrofit.deleteUser(userLogin.id).isExecuted
     }
 
 }
+
+

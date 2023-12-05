@@ -10,7 +10,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_search_item"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="@string/search"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:startIconDrawable="@drawable/ic_search"
@@ -26,6 +26,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search_item"
             android:layout_width="match_parent"
+            tools:text="saile"
             android:layout_height="match_parent"/>
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -50,14 +50,15 @@ class SingInFragment : Fragment() {
             }
 
             btnLogin.setOnClickListener{
-                val email = etEmail.text.toString()
-                val senha = etSenha.text.toString()
+                val name = etName.text.toString()
+                val password = etSenha.text.toString()
 
-                if(checkValues(email, senha)){
+                if(checkValues(name, password)){
                     lifecycleScope.launch {
                         pbLoader.isVisible = true
                         ivPerfil.isInvisible = true
-                        if(userView.singInUser(email, senha)){
+
+                        if(userView.singInUser(name, password)){
                             pbLoader.isVisible = false
                             ivPerfil.isVisible = true
                             navController.navigate(R.id.go_to_perfilFragment)
@@ -66,6 +67,7 @@ class SingInFragment : Fragment() {
                             pbLoader.isVisible = false
                             ivPerfil.isVisible = true
                         }
+
                     }
                 }
             }
@@ -77,16 +79,16 @@ class SingInFragment : Fragment() {
     }
 
     private fun SingInFragmentBinding.checkValues(
-        email: String,
-        senha: String
+        name: String,
+        password: String
     ) : Boolean {
         var status = true
-        if (email == "" || !email.contains("@")) {
-            etEmail.error = "Email invalido."
+        if (name == "") {
+            etName.error = "Campo vazio."
             status = false
         }
 
-        if (senha == "") {
+        if (password == "") {
             etSenha.error = "Campo vazio."
             status = false
         }

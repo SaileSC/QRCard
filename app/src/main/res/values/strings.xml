@@ -46,6 +46,8 @@
     <string name="order_detail">Detalhes do Pedido</string>
     <string name="order_id_text">Pedido ID:</string>
     <string name="new_order">Novo Pedido</string>
+    <string name="delete_acc">Deletar Conta</string>
+    <string name="back">Voltar</string>
 
 
 </resources>

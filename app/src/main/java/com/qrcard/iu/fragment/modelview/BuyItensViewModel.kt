@@ -38,7 +38,7 @@ class BuyItensViewModel(
         var string =""
 
         for(item in buyItens){
-           string += "${item.quantidade}x R$ %.2f\n".format((item.quantidade * item.preco.replace(",", ".").toFloat()))
+           string += "${item.quantidade}x R$ %.2f\n".format(item.preco.replace(",", ".").toFloat())
         }
 
         return string

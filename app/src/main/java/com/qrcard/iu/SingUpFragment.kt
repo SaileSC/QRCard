@@ -1,6 +1,8 @@
 package com.qrcard.iu
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +12,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.qrcard.databinding.SingUpFragmentBinding
 import com.qrcard.domain.User
+import com.qrcard.iu.event.UserCreationListener
 import com.qrcard.iu.fragment.modelview.UserViewModel
 
 
-class SingUpFragment : Fragment() {
+class SingUpFragment : Fragment(), UserCreationListener {
 
     private val binding by lazy { SingUpFragmentBinding.inflate(layoutInflater) }
 
     private val userView: UserViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,35 +31,34 @@ class SingUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userView.setUserCreationListener(this)
         setupActions()
     }
 
     private fun setupActions() {
-
         binding.run {
             btnSingUp.setOnClickListener {
                 val user = User(
+                    "",
                     etNome.text.toString(),
-                    etEmail.text.toString(),
                     etEmail.text.toString(),
                     etSenha.text.toString(),
                 )
 
                 if(checkUser(user)){
+
                     userView.singUpUser(user)
-                    Toast.makeText(context, "Usuario inserido com sucesso...", Toast.LENGTH_SHORT).show()
-                    findNavController().navigateUp()
                 }
+
             }
         }
     }
-
 
     private fun checkUser(user : User) : Boolean{
         var stateOk = true
 
         binding.apply {
-            if(user.nome == ""){
+            if(user.name == ""){
                 etNome.error = "nome é obrigatorio"
                 stateOk = false
             }
@@ -67,7 +68,7 @@ class SingUpFragment : Fragment() {
                 stateOk = false
             }
 
-            if(user.senha.length < 6){
+            if(user.password.length < 6){
                 tilSenha.error = "senha obrigatorio de 6 digitos"
                 stateOk = false
             }else{
@@ -75,5 +76,20 @@ class SingUpFragment : Fragment() {
             }
         }
         return stateOk
+    }
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    override fun onUserCreatedSuccessfully() {
+        handler.post {
+            Toast.makeText(context, "Usuário inserido com sucesso...", Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+        }
+    }
+
+    override fun onUserCreationFailed(errorMessage: String) {
+        handler.post {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -76,7 +76,7 @@ class MainScreen  : Fragment() {
 
         binding.ivPerfil.setOnClickListener{
 
-            if(userView.getUser().nome == ""){
+            if(userView.getUser().name == ""){
                 navController.navigate(R.id.go_to_singInFragment)
             }else{
                 navController.navigate(R.id.go_to_perfilFragment)
